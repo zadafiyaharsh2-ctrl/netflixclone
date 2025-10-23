@@ -1,0 +1,70 @@
+.player {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-color: #000;
+  display: flex;
+  flex-direction: column; /* <-- fixed typo (was flex: column) */
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.back-arrow {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: 45px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s ease;
+}
+
+.back-arrow:hover {
+  transform: scale(1.1);
+}
+
+.player iframe {
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+ 
+  width: 90%;
+  height: 90%;
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 900px;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #ddd;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 18px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+
+.player-info p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .player iframe {
+    height: 60%;
+  }
+
+  .player-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 0.9rem;
+  }
+
+  .back-arrow {
+    width: 40px;
+  }
+}
