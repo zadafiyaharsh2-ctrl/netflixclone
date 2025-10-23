@@ -1,2 +1,3 @@
 # netflixclone
-this is react project to learn react
+this is react netflix clone project to learn react and firebase for authentication and database
+
