@@ -51,4 +51,6 @@ const logout = async () => {
     }
 }
 
+// Export everything you need
 export { auth, db, signUp, login, logout };
+export default app;

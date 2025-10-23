@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./Login.css";
 import logo from "../../assets/logo.png";
+import { signUp, login } from '../../firebase'; // Adjust path according to your file structure
 
 const Login = () => {
   const [signState, setSignState] = useState("Sign In");
@@ -9,19 +10,33 @@ const Login = () => {
     email: "",
     password: ""
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (signState === "Sign In") {
-      console.log("Logging in with:", formData);
-      // TODO: call login API
-    } else {
-      console.log("Signing up with:", formData);
-      // TODO: call signup API
+    setLoading(true);
+
+    try {
+      if (signState === "Sign In") {
+        console.log("Logging in with:", formData);
+        await login(formData.email, formData.password);
+        // User is now logged in - you can redirect or update state
+        console.log("Login successful!");
+      } else {
+        console.log("Signing up with:", formData);
+        await signUp(formData.name, formData.email, formData.password);
+        // User is now registered and logged in
+        console.log("Sign up successful!");
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
+      // Error is already handled in Firebase functions, but you can add additional handling here
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,9 +73,16 @@ const Login = () => {
             value={formData.password}
             onChange={handleChange}
             required
+            minLength={6}
           />
 
-          <button type="submit" className="btnlogin">{signState}</button>
+          <button 
+            type="submit" 
+            className="btnlogin" 
+            disabled={loading}
+          >
+            {loading ? "Processing..." : signState}
+          </button>
 
           <div className="for-help">
             <div className="remember">
