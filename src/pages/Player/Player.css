@@ -1,16 +1,19 @@
 .player {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background-color: #000;
   display: flex;
-  flex-direction: column; /* <-- fixed typo (was flex: column) */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #fff;
   overflow: hidden;
+  padding: 20px 0;
+  box-sizing: border-box;
 }
 
+/* Back Arrow */
 .back-arrow {
   position: absolute;
   top: 25px;
@@ -18,21 +21,26 @@
   width: 45px;
   cursor: pointer;
   filter: brightness(0) invert(1);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  z-index: 10;
 }
 
 .back-arrow:hover {
   transform: scale(1.1);
+  opacity: 0.9;
 }
 
+/* Video Frame */
 .player iframe {
+  width: 90%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9; /* keeps proper video ratio */
   border-radius: 12px;
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
- 
-  width: 90%;
-  height: 90%;
+  border: none;
 }
 
+/* Info Section */
 .player-info {
   display: flex;
   justify-content: space-between;
@@ -45,26 +53,80 @@
   background: rgba(255, 255, 255, 0.05);
   padding: 12px 18px;
   border-radius: 10px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  flex-wrap: wrap;
+  row-gap: 6px;
 }
 
 .player-info p {
   margin: 0;
 }
 
-@media (max-width: 768px) {
+/* Tablet adjustments */
+@media (max-width: 1024px) {
   .player iframe {
-    height: 60%;
+    width: 92%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .player-info {
+    font-size: 0.95rem;
+  }
+
+  .back-arrow {
+    width: 42px;
+    top: 20px;
+    left: 20px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .player {
+    padding: 40px 0 20px;
+  }
+
+  .player iframe {
+    width: 95%;
+    aspect-ratio: 16 / 9;
   }
 
   .player-info {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 8px;
     font-size: 0.9rem;
+    padding: 10px 14px;
   }
 
   .back-arrow {
-    width: 40px;
+    width: 36px;
+    top: 15px;
+    left: 15px;
+  }
+}
+
+/* Small mobile (under 480px) */
+@media (max-width: 480px) {
+  .player {
+    padding: 20px 0;
+  }
+
+  .player iframe {
+    width: 96%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+  }
+
+  .player-info {
+    width: 92%;
+    font-size: 0.85rem;
+    margin-top: 15px;
+  }
+
+  .back-arrow {
+    width: 32px;
+    top: 12px;
+    left: 12px;
   }
 }
